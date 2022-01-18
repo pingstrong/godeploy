@@ -14,7 +14,7 @@ WORKDIR /build
 RUN apk update && apk add tzdata
 # 复制项目中的 go.mod 和 go.sum文件并下载依赖信息
 COPY go.mod .
-COPY go.sum .
+#COPY go.sum .
 #RUN go mod download
 RUN go mod tidy
 # 将代码复制到容器中
@@ -31,6 +31,8 @@ FROM alpine
 WORKDIR /www
 # 从builder镜像中把/dist/app 拷贝到当前目录
 COPY --from=builder /build/goapp .
+# 设置Go程序权限
+RUN chmod +x /www/goapp
 
 COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 

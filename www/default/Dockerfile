@@ -23,21 +23,33 @@ RUN pwd && ls
 # 将我们的代码编译成二进制可执行文件 app
 RUN  go build -ldflags="-w -s" -a -installsuffix cgo -o goapp .
 
+# 移动到用于存放生成的二进制文件的 /dist 目录
+WORKDIR /dist
+
+# 将二进制文件从 /build 目录复制到这里
+RUN cp /build/goapp .
+
+# 声明服务端口
+EXPOSE 9090
+
+# 启动容器时运行的命令
+CMD ["/dist/goapp"]
+
 ###################
 # 接下来创建一个小镜像 alpine 或者 scratch
 ###################
-FROM alpine
+#FROM alpine
 
 #WORKDIR /www
 # 从builder镜像中把/dist/app 拷贝到当前目录
-COPY --from=builder /build/goapp .
+#COPY --from=builder /build/goapp .
 # 设置Go程序权限
-RUN chmod +x ./goapp
+#RUN chmod +x ./goapp
 
-COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+#COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-EXPOSE 9090
+#EXPOSE 9090
 # 启动容器需要运行的命令
 #CMD ["/goapp","-c", "/config/settings.yml"]
-CMD ["goapp"]
+#CMD ["goapp"]
 #ENTRYPOINT ["/goapp", "conf/config.ini"]

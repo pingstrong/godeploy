@@ -21,7 +21,7 @@ RUN go mod tidy
 COPY . .
 RUN pwd && ls
 # 将我们的代码编译成二进制可执行文件 app
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -a -installsuffix cgo -o goapp .
+RUN  go build -ldflags="-w -s" -a -installsuffix cgo -o goapp .
 
 ###################
 # 接下来创建一个小镜像 alpine 或者 scratch

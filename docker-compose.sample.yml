@@ -105,7 +105,7 @@ services:
       - spring_net
     restart: always
     environment:
-      - PMA_HOST=mariadb
+      - PMA_HOST=mysql8
       - PMA_PORT=3306
       - TZ=$TZ
 

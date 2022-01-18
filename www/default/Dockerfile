@@ -28,15 +28,15 @@ RUN  go build -ldflags="-w -s" -a -installsuffix cgo -o goapp .
 ###################
 FROM alpine
 
-WORKDIR /www
+#WORKDIR /www
 # 从builder镜像中把/dist/app 拷贝到当前目录
-COPY --from=builder /build/goapp /www
+COPY --from=builder /build/goapp .
 # 设置Go程序权限
 RUN chmod +x /www/goapp
 
 COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-EXPOSE 8000
+EXPOSE 9090
 # 启动容器需要运行的命令
 #CMD ["/goapp","-c", "/config/settings.yml"]
 CMD ["goapp"]

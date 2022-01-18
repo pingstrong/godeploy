@@ -1,0 +1,7 @@
+*
+!.gitignore
+!certs/localhost/
+!localhost.conf
+!laravel.example
+!normal.example
+!proxy.example

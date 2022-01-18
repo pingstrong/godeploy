@@ -1,0 +1,58 @@
+server {
+    listen       80;
+    server_name domain.com;
+    index  index.php index.html index.htm;
+
+    #charset utf-8;
+    #add_header X-Frame-Options "SAMEORIGIN";
+    #add_header X-XSS-Protection "1; mode=block";
+    #add_header X-Content-Type-Options "nosniff";
+    access_log /dev/null;
+    #access_log  /var/log/nginx/nginx.localhost.access.log  log_post;
+    #error_log  /var/log/nginx/nginx.localhost.error.log  warn;
+
+    #error_page  404              /404.html;
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+    #allow cross
+    #add_header 'Access-Control-Allow-Origin' $http_origin always;
+    #add_header 'Access-Control-Request-Method' 'GET,POST,OPTIONS,DELETE,PUT' always;
+    #add_header 'Access-Control-Allow-Credentials' 'true' always;
+    #add_header 'Access-Control-Allow-Headers' '*' always;
+    #add_header Access-Control-Allow-Credentials true always;
+    #if ( $request_method = 'OPTIONS' ) { 
+    #        return 204;
+    #}
+
+    location / {
+        #if (!-e $request_filename) {
+         #       rewrite  ^(.*)$  /index.php?s=/$1  last;
+          #  }
+        proxy_pass http://docker-container:port;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header REMOTE-HOST $remote_addr;
+    
+        #持久化连接相关配置
+        #proxy_connect_timeout 30s;
+        #proxy_read_timeout 86400s;
+        #proxy_send_timeout 30s;
+        #proxy_http_version 1.1;
+        #proxy_set_header Upgrade $http_upgrade;
+        #proxy_set_header Connection "upgrade";
+        add_header X-Cache $upstream_cache_status;
+    
+        #Set Nginx Cache
+        add_header Cache-Control no-cache;
+       
+    }
+ 
+}

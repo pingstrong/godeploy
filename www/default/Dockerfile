@@ -32,7 +32,7 @@ FROM alpine
 # 从builder镜像中把/dist/app 拷贝到当前目录
 COPY --from=builder /build/goapp .
 # 设置Go程序权限
-RUN chmod +x /www/goapp
+RUN chmod +x ./goapp
 
 COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 

@@ -30,7 +30,7 @@ FROM alpine
 
 WORKDIR /www
 # 从builder镜像中把/dist/app 拷贝到当前目录
-COPY --from=builder /build/goapp .
+COPY --from=builder /build/goapp /www
 # 设置Go程序权限
 RUN chmod +x /www/goapp
 
@@ -39,5 +39,5 @@ COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 EXPOSE 8000
 # 启动容器需要运行的命令
 #CMD ["/goapp","-c", "/config/settings.yml"]
-CMD ["/www/goapp"]
+CMD ["goapp"]
 #ENTRYPOINT ["/goapp", "conf/config.ini"]

@@ -32,7 +32,7 @@ RUN cp /build/goapp .
 # 声明服务端口
 EXPOSE 9090
 
-# 启动容器时运行的命令
+# 启动容器时运行的命令、不编译二进制文件也可以用go环境运行 CMD["go", "run", "/dist/main.go"]
 CMD ["/dist/goapp"]
 
 ###################

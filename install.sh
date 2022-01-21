@@ -178,8 +178,10 @@ cat >> /etc/security/limits.conf <<EOF
 EOF
 
     ulimit -SHn 1024000
-    echo "ulimit -SHn 1024000" >> /etc/rc.d/rc.local
-    source /etc/rc.d/rc.local
+    if [[ $OS =~ (centos|amzn) ]]; then
+        echo "ulimit -SHn 1024000" >> /etc/rc.d/rc.local
+        source /etc/rc.d/rc.local
+    fi
 
 cat > /etc/sysctl.conf<<EOF
 

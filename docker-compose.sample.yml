@@ -57,6 +57,8 @@ services:
       - /etc/localtime:/etc/localtime
       - ${DATA_DIR}/mysql8:/var/lib/mysql
       - ${MYSQL8_CONF_FILE}:/etc/mysql/conf.d
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL8_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL8_DATABASE}

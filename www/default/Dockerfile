@@ -12,6 +12,9 @@ ENV GO111MODULE=on \
 WORKDIR /build
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk update && apk add tzdata upx
+
+#安装OCR 图片文字识别
+#RUN apk add tesseract-ocr tesseract-ocr-data-chi_sim
 # 复制项目中的 go.mod 和 go.sum文件并下载依赖信息
 COPY go.mod .
 COPY go.sum .

@@ -107,7 +107,6 @@ server {
 
     #error_page  404              /404.html;
     
-    ssl on;
     ssl_certificate   /ssl/localhost/cert/a.pem;
     ssl_certificate_key  /ssl/localhost/cert/a.key;
     ssl_session_timeout 5m;

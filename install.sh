@@ -276,7 +276,7 @@ InstallDocker()
             #sudo yum makecache fast 
             #sudo yum localinstall -y ./package/centos/containerd.io-1.2.13-3.2.fc30.x86_64
             sudo yum -y install docker-ce docker-ce-cli containerd.io
-            curl -L https://get.daocloud.io/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+            curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
             chmod +x /usr/local/bin/docker-compose
             #sudo curl -L "https://gitee.com/thinkpanax/dockerCompose/repository/archive/v1.25?format=tar.gz" -o ./v1.25.tar.gz
             #sudo tar -zxvf ./v1.25.tar.gz && cp ./dockerCompose/docker-compose /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && rm -rf dockerCompose
